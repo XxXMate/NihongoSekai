@@ -156,6 +156,26 @@ const detailMeaning = document.getElementById("detailMeaning");
 
 let activeCategory = null;
 
+function playKatakanaAudio(character) {
+  // Cek dukungan suara browser
+  if (!("speechSynthesis" in window)) {
+    console.warn("Browser tidak mendukung fitur suara.");
+    return;
+  }
+
+  // Hentikan suara sebelumnya
+  window.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(character);
+
+  // Pengaturan pengucapan bahasa Jepang
+  utterance.lang = "ja-JP";
+  utterance.rate = 0.85;
+  utterance.pitch = 1;
+
+  window.speechSynthesis.speak(utterance);
+}
+
 function showKatakanaDetail(item) {
 
   if (
@@ -200,8 +220,9 @@ function renderKatakana(category) {
       <span class="kana-romaji">${item[1]}</span>
     `;
 
-    card.addEventListener("click", () => {
-      showKatakanaDetail(item);
+     card.addEventListener("click", () => {
+       playKatakanaAudio(item[0]);
+       showKatakanaDetail(item);
     });
 
     kanaGrid.appendChild(card);
