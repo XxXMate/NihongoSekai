@@ -139,6 +139,25 @@ const hinaDetailMeaning = document.getElementById("detailMeaning");
 const hinaCount = document.getElementById("kanaCount");
 const hinaTabs = document.querySelectorAll(".kana-tab");
 
+function playHinaAudio(character) {
+  // Hentikan suara sebelumnya agar tidak bertumpuk
+  if (!("speechSynthesis" in window)) {
+    console.warn("Browser tidak mendukung fitur suara.");
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(character);
+
+  // Gunakan pengucapan bahasa Jepang
+  utterance.lang = "ja-JP";
+  utterance.rate = 0.85;
+  utterance.pitch = 1;
+
+  window.speechSynthesis.speak(utterance);
+}
+  
 function showHinaDetail(item) {
   
   if (
@@ -215,8 +234,9 @@ function renderHina(category) {
       <span class="kana-romaji">${romaji}</span>
     `;
 
-    card.addEventListener("click", () => {
-      showHinaDetail(item);
+     card.addEventListener("click", () => {
+       playHinaAudio(character);
+       showHinaDetail(item);
     });
 
     hinaGrid.appendChild(card);
