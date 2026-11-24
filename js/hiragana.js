@@ -181,12 +181,6 @@ function showHinaDetail(item) {
   hinaDetailWord.textContent = word;
   hinaDetailMeaning.textContent = meaning;
 
-  // HINA — AUTO SCROLL DETAIL
-  hinaDetail.scrollIntoView({
-    behavior: "smooth",
-    block: "nearest"
-  });
-
   hinaGrid.querySelectorAll(".kana-card").forEach(card => {
     const selected = card.dataset.kana === character;
 
