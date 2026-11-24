@@ -175,11 +175,6 @@ function showKatakanaDetail(item) {
 
   kanaDetail.hidden = false;
   kanaDetail.classList.add("active");
-
-  kanaDetail.scrollIntoView({
-    behavior: "smooth",
-    block: "nearest"
-  });
 }
 
 function renderKatakana(category) {
@@ -266,7 +261,6 @@ kanaTabs.forEach((tab) => {
     tab.classList.add("active");
     tab.setAttribute("aria-pressed", "true");
 
-    // KATAKANA BARU — TUTUP DETAIL HURUF
     if (kanaDetail) {
       kanaDetail.classList.remove("active");
     }
